@@ -47,4 +47,25 @@
     </div>
 
 
-    
+    <div class="flex gap-3 mb-8">
+        <button onclick="window.switchTab('all')" id="allTab" class="bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer">
+            All
+        </button>
+        <button onclick="window.switchTab('interview')" id="interviewTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
+            Interview
+        </button>
+        <button onclick="window.switchTab('rejected')" id="rejectedTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
+            Rejected
+        </button>
+    </div>
+
+    <div id="jobsGrid" class="flex flex-col gap-6 mb-8"></div>
+
+    <div id="emptyState" class="hidden text-center py-16 bg-white border border-[#E2E8F0] rounded-2xl border-gray-300">
+        <img src="/images/jobs.png" class="mx-auto">
+        <h3 class="text-xl font-semibold text-[#002C5C] mb-2">No jobs available</h3>
+        <p class="text-[#64748B]">Check Back soon for opportunities</p>
+    </div>
+</section>
+
+<script src="script.js"></script>
