@@ -120,4 +120,121 @@
         return '';
     }
 
-    
+    // Render function
+    function renderJobs() {
+        let filtered = jobs;
+        if (currentTab === 'interview') {
+            filtered = jobs.filter(j => j.status === 'interview');
+        } else if (currentTab === 'rejected') {
+            filtered = jobs.filter(j => j.status === 'rejected');
+        }
+
+        jobCount.textContent = filtered.length + ' jobs';
+
+        if (filtered.length === 0) {
+            emptyState.classList.remove('hidden');
+            jobsGrid.innerHTML = '';
+            return;
+        }
+        
+        emptyState.classList.add('hidden');
+
+        jobsGrid.innerHTML = filtered.map(job => {
+            const badgeHtml = getBadgeHtml(job.status);
+            
+            return `
+            <div class="bg-white border border-[#E2E8F0] rounded-2xl p-6 transition-all relative">
+                <!-- Delete Icon -->
+                <button onclick="window.deleteJob(${job.id})" class="absolute top-4 right-4 w-8 h-8 bg-[#F7F9FC] hover:bg-red-100 rounded-full flex items-center justify-center text-[#A0AEC0] hover:text-red-500 transition-all cursor-pointer">
+                    <i class="fa-regular fa-trash-can text-sm"></i>
+                </button>
+                
+                <!-- Company Name (top) -->
+                <h3 class="font-bold text-[#002C5C] text-xl mb-3">${job.company}</h3>
+                
+                <!-- Position -->
+                <h4 class="text-lg text-[#64748B] mb-2">${job.position}</h4>
+                
+                <!-- Location, Type, Salary in one line with dots -->
+                <div class="flex items-center gap-2 text-sm text-[#64748B] mb-4">
+                    <span>${job.location}</span>
+                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                    <span>${job.type}</span>
+                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                    <span>${job.salary}</span>
+                </div>
+                
+                <!-- Status Badge -->
+                ${badgeHtml}
+                
+                <!-- Description -->
+                <p class="text-[#323B49] text-sm leading-relaxed mb-6">
+                    ${job.description}
+                </p>
+                
+                <!-- Action Buttons side by side - width কমানো হয়েছে -->
+                <div class="flex gap-2">
+                    <button onclick="window.toggleStatus(${job.id}, 'interview')" 
+                        class="bg-white text-green-600 border border-green-600 px-3 py-1 rounded-lg font-semibold text-sm hover:bg-green-50 transition-all cursor-pointer">
+                        INTERVIEW
+                    </button>
+                    
+                    <button onclick="window.toggleStatus(${job.id}, 'rejected')" 
+                        class="bg-white text-red-600 border border-red-600 px-3 py-1 rounded-lg font-semibold text-sm hover:bg-red-50 transition-all cursor-pointer">
+                        REJECTED
+                    </button>
+                </div>
+            </div>
+        `}).join('');
+        
+        updateCounts();
+    }
+
+    window.toggleStatus = function(id, status) {
+        const job = jobs.find(j => j.id === id);
+        
+        if (job.status === status) {
+            job.status = 'all';
+        } else {
+            job.status = status;
+        }
+        
+        renderJobs();
+    };
+
+    // Delete
+    window.deleteJob = function(id) {
+        const index = jobs.findIndex(j => j.id === id);
+        if (index !== -1) {
+            jobs.splice(index, 1);
+        }
+        renderJobs();
+    };
+    function updateCounts() {
+        const total = jobs.length;
+        const interview = jobs.filter(j => j.status === 'interview').length;
+        const rejected = jobs.filter(j => j.status === 'rejected').length;
+        
+        totalCount.textContent = total;
+        interviewCount.textContent = interview;
+        rejectedCount.textContent = rejected;
+    }
+    window.switchTab = function(tab) {
+        currentTab = tab;
+        
+        allTab.className = tab === 'all' 
+            ? 'bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer'
+            : 'bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer';
+        
+        interviewTab.className = tab === 'interview'
+            ? 'bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer'
+            : 'bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer';
+        
+        rejectedTab.className = tab === 'rejected'
+            ? 'bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer'
+            : 'bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer';
+        
+        renderJobs();
+    };
+    renderJobs();
+})();
