@@ -8,3 +8,5 @@ Insert element : document.body.appendChild(div)
 
 4. Event delegation means using one parent event listener to handle all child events.
 
+5. preventDefault() is stops the default browser action.
+stopPropagation() is stops the event from bubbling to parent elements.
