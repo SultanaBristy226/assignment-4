@@ -15,57 +15,60 @@
         }
     </style>
 </head>
+
 <body>
     <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div class="flex justify-between items-start mb-6">
             <h1 class="text-4xl font-bold text-[#002C5C]">Job Application Tracker</h1>
         </div>
+
+        <!-- Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
+                <p class="text-sm text-[#002C5C]">Total</p>
+                <p class="text-2xl font-bold text-[#002C5C]" id="totalCount">8</p>
+            </div>
+
+            <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
+                <p class="text-sm text-[#002C5C]">Interview</p>
+                <p class="text-2xl font-bold text-green-500" id="interviewCount">0</p>
+            </div>
+
+            <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
+                <p class="text-sm text-[#002C5C]">Rejected</p>
+                <p class="text-2xl font-bold text-red-500" id="rejectedCount">0</p>
+            </div>
+        </section>
+
+        <!-- Jobs -->
+        <section class="max-w-7xl mx-auto sm:px-6 py-4 sm:py-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-[#002C5C]">Available Jobs</h2>
+                <span class="px-4 py-1.5 text-[#64748B] font-medium" id="jobCount">8 jobs</span>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex gap-3 mb-8">
+                <button onclick="window.switchTab('all')" id="allTab" class="bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer">
+                    All
+                </button>
+                <button onclick="window.switchTab('interview')" id="interviewTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
+                    Interview
+                </button>
+                <button onclick="window.switchTab('rejected')" id="rejectedTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
+                    Rejected
+                </button>
+            </div>
+
+            <div id="jobsGrid" class="flex flex-col gap-6 mb-8"></div>
+            <div id="emptyState" class="hidden text-center py-16 bg-white border border-[#E2E8F0] rounded-2xl border-gray-300">
+                <img src="/images/jobs.png" class="mx-auto">
+                <h3 class="text-xl font-semibold text-[#002C5C] mb-2">No jobs available</h3>
+                <p class="text-[#64748B]">Check Back soon for opportunities</p>
+            </div>
+        </section>
     </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
-<!-- Cards -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-    <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
-        <p class="text-sm text-[#002C5C]">Total</p>
-        <p class="text-2xl font-bold text-[#002C5C]" id="totalCount">8</p>
-    </div>
-    <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
-        <p class="text-sm text-[#002C5C]">Interview</p>
-        <p class="text-2xl font-bold text-green-500" id="interviewCount">0</p>
-    </div>
-    <div class="bg-white border border-[#E2E8F0] rounded-2xl p-5">
-        <p class="text-sm text-[#002C5C]">Rejected</p>
-        <p class="text-2xl font-bold text-red-500" id="rejectedCount">0</p>
-    </div>
-</section>
-
-<!-- Jobs Section -->
-<section class="max-w-7xl mx-auto sm:px-6 py-4 sm:py-8">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-bold text-[#002C5C]">Available Jobs</h2>
-        <span class="px-4 py-1.5 text-[#64748B] font-medium" id="jobCount">8 jobs</span>
-    </div>
-
-
-    <div class="flex gap-3 mb-8">
-        <button onclick="window.switchTab('all')" id="allTab" class="bg-[#3B82F6] text-white rounded-2xl px-6 py-2 font-medium text-sm cursor-pointer">
-            All
-        </button>
-        <button onclick="window.switchTab('interview')" id="interviewTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
-            Interview
-        </button>
-        <button onclick="window.switchTab('rejected')" id="rejectedTab" class="bg-white border border-[#E2E8F0] rounded-2xl px-6 py-2 text-[#64748B] font-medium text-sm cursor-pointer">
-            Rejected
-        </button>
-    </div>
-
-    <div id="jobsGrid" class="flex flex-col gap-6 mb-8"></div>
-
-    <div id="emptyState" class="hidden text-center py-16 bg-white border border-[#E2E8F0] rounded-2xl border-gray-300">
-        <img src="/images/jobs.png" class="mx-auto">
-        <h3 class="text-xl font-semibold text-[#002C5C] mb-2">No jobs available</h3>
-        <p class="text-[#64748B]">Check Back soon for opportunities</p>
-    </div>
-</section>
-
-<script src="script.js"></script>
